@@ -1,0 +1,273 @@
+/* Estilos globales */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    color: #333;
+  }
+  
+  header {
+    background: linear-gradient(135deg, #35424a, #2a3a44);
+    color: #fff;
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 3em;
+  }
+  
+  header p {
+    margin: 10px 0 0;
+    font-size: 1.3em;
+  }
+  
+  /* Navegación */
+  nav {
+    background: #e8491d;
+    padding: 12px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  nav a {
+    color: #fff;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+  }
+  
+  nav a:hover {
+    color: #ffdcdc;
+    transform: scale(1.05);
+  }
+  
+  /* Contenedor principal */
+  .container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+  
+  /* Panel de Bienvenida (más grande y centrado) */
+  .welcome-panel {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
+    margin: 30px auto;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+  
+  .welcome-panel img.user-photo {
+    border-radius: 50%;
+    margin-right: 20px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .welcome-panel .welcome-text h2 {
+    margin: 0 0 10px 0;
+    color: #35424a;
+    font-size: 2em;
+  }
+  
+  .welcome-panel .welcome-text p {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  /* Diseño de tarjetas */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+  
+  .card h2 {
+    margin-top: 0;
+    color: #35424a;
+    font-size: 1.8em;
+    border-bottom: 2px solid #e8491d;
+    padding-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 15px 0;
+  }
+  
+  .card button {
+    background: #e8491d;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .card button:hover {
+    background: #cf3f16;
+    transform: scale(1.05);
+  }
+  
+  /* Efecto para reordenar */
+  .fade-out {
+    opacity: 0.3;
+  }
+  
+  /* Estilos para la burbuja de chat */
+  #chat-bubble {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #e8491d;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    font-size: 1em;
+    white-space: nowrap;
+  }
+  
+  #chat-bubble:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Estilos para el panel de chat */
+  .chat-panel {
+    position: fixed;
+    bottom: 100px;
+    left: 20px;
+    width: 300px;
+    height: 400px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+  }
+  
+  .chat-panel.hidden {
+    display: none;
+  }
+  
+  .chat-header {
+    background: #e8491d;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chat-header button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  
+  .chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background: #f9f9f9;
+  }
+  
+  .chat-body .chat-message {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    background: #f1f1f1;
+    color: #333;
+  }
+  
+  .chat-body .user-message {
+    background: #e8491d;
+    color: #fff;
+    text-align: right;
+  }
+  
+  .chat-footer {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    display: flex;
+  }
+  
+  .chat-footer input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .chat-footer button {
+    background: #e8491d;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Pie de página */
+  footer {
+    background: #35424a;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 40px;
+    font-size: 0.9em;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+    }
+    nav a {
+      margin: 8px 0;
+    }
+  }
+  

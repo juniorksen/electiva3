@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Fianzas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Control de Fianzas</h1>
+        <p>Gestión y monitoreo eficiente de fianzas</p>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('usuarios.registro') }}">Registro</a>
+        <a href="#">Fianzas</a>
+        <a href="#">Reportes</a>
+        <a href="#">Historial</a>
+        <a href="#">Estadísticas</a>
+        <a href="#">Configuración</a>
+        <a href="#" onclick="reorderBoxes()">Reordenar</a>
+    </nav>
+
+    <div class="container">
+        <!-- Panel de Bienvenida -->
+        <div class="welcome-panel">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8GDrMMZ3vCvSZHCYRrj9AvIOIN5rZIXDyKA&s" alt="Foto del usuario" class="user-photo">
+            <div class="welcome-text">
+                <h2>Bienvenido, Usuario X!</h2>
+                <p>Esperamos que tengas un excelente día.</p>
+            </div>
+        </div>
+
+        <section class="grid">
+            <!-- Tarjeta para crear una nueva fianza -->
+            <div class="card">
+                <h2>Nueva Fianza</h2>
+                <p>Registrar una nueva fianza en el sistema.</p>
+                <button onclick="crearFianza()">Crear</button>
+            </div>
+            <!-- Tarjeta para ver el listado de fianzas -->
+            <div class="card">
+                <h2>Listado de Fianzas</h2>
+                <p>Visualiza y administra las fianzas registradas.</p>
+                <button onclick="verListado()">Ver Listado</button>
+            </div>
+            <!-- Tarjeta para generar reportes -->
+            <div class="card">
+                <h2>Reportes</h2>
+                <p>Genera reportes de estado y seguimiento.</p>
+                <button onclick="generarReporte()">Generar</button>
+            </div>
+            <!-- Tarjeta para historial -->
+            <div class="card">
+                <h2>Historial</h2>
+                <p>Revisa el historial de fianzas y operaciones.</p>
+                <button onclick="verHistorial()">Ver Historial</button>
+            </div>
+            <!-- Tarjeta para estadísticas -->
+            <div class="card">
+                <h2>Estadísticas</h2>
+                <p>Consulta datos y gráficos de tendencias.</p>
+                <button onclick="verEstadisticas()">Ver Estadísticas</button>
+            </div>
+            <!-- Tarjeta para configuración avanzada -->
+            <div class="card">
+                <h2>Configuración Avanzada</h2>
+                <p>Ajusta las preferencias y parámetros del sistema.</p>
+                <button onclick="configuracionAvanzada()">Configurar</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Control de Fianzas. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Panel de Chat -->
+    <div id="chat-panel" class="chat-panel hidden">
+        <div class="chat-header">
+            <span>Chat con la IA</span>
+            <button onclick="closeChat()">X</button>
+        </div>
+        <div class="chat-body">
+            <!-- Aquí se agregarán los mensajes -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." />
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Burbuja de Chat -->
+    <div id="chat-bubble" onclick="openChat()">Chatea con nuestra IA</div>
+
+    <script src="{{ url_for('static', filename='css/script.css') }}"></script>
+</body>
+
+</html>
