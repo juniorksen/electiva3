@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Fianzas - {% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Control de Fianzas</h1>
+        <p>Gestión y monitoreo eficiente de fianzas</p>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('usuarios.registro') }}">Registro</a>
+        <a href="{{ url_for('transacciones.dashboard') }}">Fianzas</a>
+        <a href="#">Reportes</a>
+        <a href="#">Historial</a>
+        <a href="#">Estadísticas</a>
+        <a href="#">Configuración</a>
+        <a href="#" onclick="reorderBoxes()">Reordenar</a>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        <!-- El contenido específico de cada vista será insertado aquí -->
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Control de Fianzas. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Panel de Chat -->
+    <div id="chat-panel" class="chat-panel hidden">
+        <div class="chat-header">
+            <span>Chat con la IA</span>
+            <button onclick="closeChat()">X</button>
+        </div>
+        <div class="chat-body">
+            <!-- Aquí se agregarán los mensajes -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." />
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Burbuja de Chat -->
+    <div id="chat-bubble" onclick="openChat()">Chatea con nuestra IA</div>
+
+    <script src="{{ url_for('static', filename='css/script.css') }}"></script>
+</body>
+
+</html>

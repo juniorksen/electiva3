@@ -1,0 +1,20 @@
+<h2>Registrar Gasto</h2>
+<form method="POST">
+    <label>Monto:</label>
+    <input type="number" step="0.01" name="monto" required><br>
+
+    <label>Fecha:</label>
+    <input type="date" name="fecha" required><br>
+
+    <label>Descripción:</label>
+    <input type="text" name="descripcion"><br>
+
+    <label>Categoría:</label>
+    <select name="categoria" required>
+    {% for cat in categorias %}
+      <option value="{{ cat.id }}">{{ cat.nombre }}</option>
+    {% endfor %}
+  </select><br>
+
+    <button type="submit">Registrar gasto</button>
+</form>

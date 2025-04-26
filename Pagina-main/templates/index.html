@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Fianzas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
 
     <nav>
         <a href="{{ url_for('usuarios.registro') }}">Registro</a>
-        <a href="#">Fianzas</a>
+        <a href="{{ url_for('transacciones.dashboard') }}">Fianzas</a>
         <a href="#">Reportes</a>
         <a href="#">Historial</a>
         <a href="#">Estadísticas</a>
@@ -29,7 +29,7 @@
         <div class="welcome-panel">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8GDrMMZ3vCvSZHCYRrj9AvIOIN5rZIXDyKA&s" alt="Foto del usuario" class="user-photo">
             <div class="welcome-text">
-                <h2>Bienvenido, Usuario X!</h2>
+                <h2>Bienvenido, {{ session['usuario_nombre'] }}!</h2>
                 <p>Esperamos que tengas un excelente día.</p>
             </div>
         </div>

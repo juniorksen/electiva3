@@ -1,0 +1,212 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container py-4">
+    <!-- Título del Dashboard -->
+    <h1 class="mb-4">Dashboard Financiero - Hola, {{ nombre_usuario }}</h1>
+
+    <!-- Tarjetas para mostrar el saldo actual, ingresos y gastos -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Saldo Actual</h5>
+                    <h2 class="card-text">${{ '{:.2f}'.format(saldo_actual) }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Ingresos este mes</h5>
+                    <h2 class="card-text">${{ '{:.2f}'.format(total_ingresos_mes) }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Gastos este mes</h5>
+                    <h2 class="card-text">${{ '{:.2f}'.format(total_gastos_mes) }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formularios para agregar ingresos y gastos -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5>Registrar Ingreso</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('transacciones.agregar_ingreso') }}" method="post">
+                        <div class="mb-3">
+                            <label for="monto" class="form-label">Monto ($)</label>
+                            <input type="number" step="0.01" min="0.01" class="form-control" id="monto" name="monto" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="fecha" name="fecha" value="{{ fecha_actual }}">
+                        </div>
+                        <button type="submit" class="btn btn-success">Registrar Ingreso</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5>Registrar Gasto</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('transacciones.agregar_gasto') }}" method="post">
+                        <div class="mb-3">
+                            <label for="monto" class="form-label">Monto ($)</label>
+                            <input type="number" step="0.01" min="0.01" class="form-control" id="monto" name="monto" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoria_id" class="form-label">Categoría</label>
+                            <select class="form-select" id="categoria_id" name="categoria_id" required>
+                                <option value="" selected disabled>Selecciona una categoría</option>
+                                {% for categoria in categorias %}
+                                <option value="{{ categoria[0] }}">{{ categoria[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="fecha" name="fecha" value="{{ fecha_actual }}">
+                        </div>
+                        <button type="submit" class="btn btn-danger">Registrar Gasto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos y tablas de gastos por categoría y gastos fijos -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Gastos por Categoría (Este Mes)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for categoria in gastos_por_categoria %}
+                                <tr>
+                                    <td>{{ categoria[0] }}</td>
+                                    <td>${{ '{:.2f}'.format(categoria[1]) }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="2" class="text-center">No hay gastos registrados este mes</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Gastos Fijos</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Categoría</th>
+                                    <th>Monto</th>
+                                    <th>Día de pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for gasto in gastos_fijos %}
+                                <tr>
+                                    <td>{{ gasto[0] }}</td>
+                                    <td>{{ gasto[2] }}</td>
+                                    <td>${{ '{:.2f}'.format(gasto[1]) }}</td>
+                                    <td>{{ gasto[3] }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No hay gastos fijos registrados</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Últimos movimientos -->
+    <div class="card mt-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5>Últimos Movimientos</h5>
+            <div>
+                <a href="{{ url_for('transacciones.listar_ingresos') }}" class="btn btn-success btn-sm">Ver Ingresos</a>
+                <a href="{{ url_for('transacciones.listar_gastos') }}" class="btn btn-danger btn-sm">Ver Gastos</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Monto</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for movimiento in ultimos_movimientos %}
+                        <tr>
+                            <td>{{ movimiento[3].strftime('%d/%m/%Y') }}</td>
+                            <td>
+                                <span class="badge {{ 'bg-success' if movimiento[0] == 'ingreso' else 'bg-danger' }}">
+                                    {{ movimiento[0].capitalize() }}
+                                </span>
+                            </td>
+                            <td>${{ '{:.2f}'.format(movimiento[1]) }}</td>
+                            <td>{{ movimiento[2] }}</td>
+                            <td>{{ movimiento[4] if movimiento[4] else '-' }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">No hay movimientos registrados</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
